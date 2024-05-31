@@ -1,0 +1,184 @@
+
+Q.NO:1
+1. Public
+Class: A public class is accessible from any other class in any package.
+Method: A public method is accessible from any other class in any package.
+Variable: A public variable is accessible from any other class in any package.
+Significance: Use the public modifier when you want the class, method, or variable to be accessible from any other class, regardless of its package.
+
+2. Protected
+Class: The protected modifier cannot be applied to classes. Only methods and variables can be protected.
+Method: A protected method is accessible within its own package and by subclasses in any package.
+Variable: A protected variable is accessible within its own package and by subclasses in any package.
+Significance: Use the protected modifier when you want to allow access to the method or variable within the same package and also allow access to subclasses in different packages.
+
+3. Default (Package-private)
+Class: A class with no explicit access modifier (i.e., the default access) is accessible only within its own package.
+Method: A method with default access is accessible only within its own package.
+Variable: A variable with default access is accessible only within its own package.
+Significance: Use the default access (no modifier) when you want the class, method, or variable to be accessible only within the same package and not from outside the package.
+
+4. Private
+Class: The private modifier cannot be applied to classes. Only methods and variables can be private.
+Method: A private method is accessible only within its own class.
+Variable: A private variable is accessible only within its own class.
+Significance: Use the private modifier when you want to restrict the access of the method or variable to the containing class only. This is the most restrictive access level.
+
+
+2. Difference between Exception and Error
+Exceptions and Errors are both subclasses of the Throwable class in Java, but they serve different purposes
+Exception:
+
+Represents conditions that a reasonable application might want to catch.
+Subclasses of Exception (except for RuntimeException) must be either caught or declared in the method signature using the throws keyword.
+Examples: IOException, SQLException, NullPointerException.
+Error:
+
+Represents serious problems that a reasonable application should not try to catch.
+Errors are typically external to the application and indicate serious problems that are not expected to be caught under normal circumstances.
+Examples: OutOfMemoryError, StackOverflowError.
+
+3. Difference between Checked Exception and Unchecked Exception
+Checked Exception:
+
+These are exceptions that are checked at compile-time.
+The Java compiler requires that methods which can throw checked exceptions either handle them or declare them using the throws keyword.
+Examples: IOException, SQLException.
+Unchecked Exception:
+
+These are exceptions that are not checked at compile-time.
+They include subclasses of RuntimeException and Error.
+Methods are not required to declare or catch these exceptions.
+Examples: NullPointerException, ArrayIndexOutOfBoundsException.
+
+4. Java Program for Division with Exception Handling
+
+import java.util.Scanner;
+
+public class DivisionProgram {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the first integer: ");
+        int num1 = scanner.nextInt();
+        System.out.print("Enter the second integer: ");
+        int num2 = scanner.nextInt();
+        
+        try {
+            int result = num1 / num2;
+            System.out.println("Result: " + result);
+        } catch (ArithmeticException e) {
+            System.out.println("Error: Division by zero is not allowed.");
+        }
+        
+        scanner.close();
+    }
+}
+5. Code for ArrayIndexOutOfBoundsException & StringIndexOutOfBoundsException
+ArrayIndexOutOfBoundsException.
+
+public class ArrayIndexOutOfBoundsExceptionExample {
+    public static void main(String[] args) {
+        int[] array = {1, 2, 3};
+        try {
+            int value = array[3]; // This will throw ArrayIndexOutOfBoundsException
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Error: Array index is out of bounds.");
+        }
+    }
+}
+StringIndexOutOfBoundsException:
+
+
+public class StringIndexOutOfBoundsExceptionExample {
+    public static void main(String[] args) {
+        String str = "Hello";
+        try {
+            char ch = str.charAt(5); // This will throw StringIndexOutOfBoundsException
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("Error: String index is out of bounds.");
+        }
+    }
+}
+6. Exception Handling in a Login System
+
+
+import java.util.Scanner;
+
+public class LoginSystem {
+    public static void main(String[] args) {
+        String correctPassword = "password123";
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.print("Enter your password: ");
+        String enteredPassword = scanner.nextLine();
+        
+        try {
+            if (!enteredPassword.equals(correctPassword)) {
+                throw new IncorrectPasswordException("Incorrect password entered.");
+            }
+            System.out.println("Login successful.");
+        } catch (IncorrectPasswordException e) {
+            System.out.println(e.getMessage());
+        }
+        
+        scanner.close();
+    }
+}
+
+class IncorrectPasswordException extends Exception {
+    public IncorrectPasswordException(String message) {
+        super(message);
+    }
+}
+7. Custom Exception InvalidAgeException
+
+
+import java.util.Scanner;
+
+public class AgeValidator {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.print("Enter your age: ");
+        int age = scanner.nextInt();
+        
+        try {
+            if (age < 18) {
+                throw new InvalidAgeException("Age must be at least 18.");
+            }
+            System.out.println("Age is valid.");
+        } catch (InvalidAgeException e) {
+            System.out.println(e.getMessage());
+        }
+        
+        scanner.close();
+    }
+}
+
+class InvalidAgeException extends Exception {
+    public InvalidAgeException(String message) {
+        super(message);
+    }
+}
+8. Exception Handling for Reading Data from a File
+
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class FileReaderExample {
+    public static void main(String[] args) {
+        File file = new File("data.txt");
+        
+        try {
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                System.out.println(scanner.nextLine());
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: The file does not exist.");
+        }
+    }
+}
